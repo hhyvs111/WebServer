@@ -5,7 +5,7 @@
 #ifndef WEBSERVER_NONCOPYABLE_H
 #define WEBSERVER_NONCOPYABLE_H
 #pragma once
-
+//不可复制的类，就是直接把拷贝函数声明为私有的不就等于禁用
 class noncopyable
 {
 protected:
