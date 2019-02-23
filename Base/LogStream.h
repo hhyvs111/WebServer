@@ -8,7 +8,8 @@
 class AsyncLogging;
 const int kSmallBuffer = 4000;
 const int kLargeBuffer = 4000 * 1000;
-
+//主要用来格式化输出，重载了<<运算符，同时也有自己的一块缓冲区，这里缓冲区的存在是为了缓存一行，把多个<<的结果连成一块。
+//固定大小的buffer
 template<int SIZE>
 class FixedBuffer: noncopyable
 {

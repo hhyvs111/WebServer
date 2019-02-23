@@ -5,7 +5,7 @@
 
 namespace CurrentThread
 {
-    // internal
+    // internal线程的局部变量，别的线程不能访问
     extern __thread int t_cachedTid;
     extern __thread char t_tidString[32];
     extern __thread int t_tidStringLength;

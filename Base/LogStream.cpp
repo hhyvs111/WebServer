@@ -7,7 +7,6 @@
 #include <stdint.h>
 #include <stdio.h>
 
-//这难道不是c的写法吗？
 const char digits[] = "9876543210123456789";
 const char* zero = digits + 9;
 
