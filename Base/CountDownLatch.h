@@ -1,4 +1,3 @@
-
 #pragma once
 #include "Condition.h"
 #include "MutexLock.h"
