@@ -76,7 +76,7 @@ ssize_t readn(int fd, std::string &inBuffer, bool &zero)
     return readSum;
 }
 
-
+//必须要读到EAGAIN才停止
 ssize_t readn(int fd, std::string &inBuffer)
 {
     ssize_t nread = 0;
@@ -204,6 +204,7 @@ int setSocketNonBlocking(int fd)
 
 void setSocketNodelay(int fd) 
 {
+    //tcp_nodelay设置nodelay，那么就是禁用了negla算法，每次有数据就收发，而不是缓存一部分再发。因为现在的带宽也够了，不会出现拥挤的情况。
     int enable = 1;
     setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
 }

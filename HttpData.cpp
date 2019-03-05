@@ -724,5 +724,6 @@ void HttpData::handleClose()
 void HttpData::newEvent()
 {
     channel_->setEvents(DEFAULT_EVENT);
+    //有新的连接则将channel加入epoll，这个channel算是事件分发器
     loop_->addToPoller(channel_, DEFAULT_EXPIRED_TIME);
 }

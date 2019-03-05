@@ -80,12 +80,15 @@ void EventLoop::handleRead()
     //pwakeupChannel_->setEvents(EPOLLIN | EPOLLET | EPOLLONESHOT);
     pwakeupChannel_->setEvents(EPOLLIN | EPOLLET);
 }
-
+// 为了使IO线程在空闲时也能处理一些计算任务
+// 在I/O线程中执行某个回调函数，该函数可以跨线程调用
 void EventLoop::runInLoop(Functor&& cb)
 {
+    // 如果是当前IO线程调用runInLoop，则同步调用cb
     if (isInLoopThread())
         cb();
     else
+        // 如果是其它线程调用runInLoop，则异步地将cb添加到队列,让IO线程处理
         queueInLoop(std::move(cb));
 }
 
@@ -117,6 +120,7 @@ void EventLoop::loop()
         for (auto &it : ret)
             it->handleEvents();
         eventHandling_ = false;
+        //这里也会处理functor里保存的函数，每次loop都会执行。感觉有点牛批的样子！
         doPendingFunctors();
         poller_->handleExpired();
     }
@@ -133,7 +137,7 @@ void EventLoop::doPendingFunctors()
 
     {
         MutexLockGuard lock(mutex_);
-        functors.swap(pendingFunctors_);
+        functors.swap(pendingFunxctors_);
     }
 
     for (size_t i = 0; i < functors.size(); ++i)

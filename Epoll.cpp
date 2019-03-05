@@ -53,7 +53,7 @@ void Epoll::epoll_add(SP_Channel request, int timeout)
     }
 }
 
-//从Channel里获取fd？
+//从Channel里获取fd的事件
 // 修改描述符状态
 void Epoll::epoll_mod(SP_Channel request, int timeout)
 {

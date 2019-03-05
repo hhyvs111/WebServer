@@ -20,6 +20,7 @@ void EventLoopThreadPool::start()
     for (int i = 0; i < numThreads_; ++i)
     {
         std::shared_ptr<EventLoopThread> t(new EventLoopThread());
+        //线程池，用vector存储
         threads_.push_back(t);
         loops_.push_back(t->startLoop());
     }
